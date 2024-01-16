@@ -1,43 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { nanoid } from 'nanoid';
-
-const CONTACTS = 'contacts';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem(CONTACTS)) ?? []
-  );
-  const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(store => store.contacts.contacts);
+  const filter = useSelector(store => store.contacts.filter);
 
-  useEffect(() => {
-    localStorage.setItem(CONTACTS, JSON.stringify(contacts));
-  }, [contacts]);
-
-  const updateState = newContact => {
+  const updateState = contactData => {
     const alreadyExist = contacts.some(
-      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      contact => contact.name.toLowerCase() === contactData.name.toLowerCase()
     );
 
     if (alreadyExist) {
-      alert(`${newContact.name} is already in contacts.`);
+      alert(`${contactData.name} is already in contacts.`);
       return;
     }
+    const newContact = {
+      ...contactData,
+      id: nanoid(),
+    };
 
-    setContacts(prevState => [...prevState, { ...newContact, id: nanoid() }]);
+    const action = {
+      type: 'contacts/addContact',
+      payload: newContact,
+    };
+    dispatch(action);
   };
 
   const handleFindContact = e => {
-    setFilter(e.target.value);
+    const action = {
+      type: 'contacts/setFilter',
+      payload: e.target.value,
+    };
+    dispatch(action);
   };
 
   const handleDeleteContact = contactId => {
-    const filteredContacts = contacts.filter(
-      contact => contact.id !== contactId
-    );
-    setContacts(filteredContacts);
+    const action = {
+      type: 'contacts/deleteContact',
+      payload: contactId,
+    };
+    dispatch(action);
   };
 
   const getFilteredContacts = () => {
