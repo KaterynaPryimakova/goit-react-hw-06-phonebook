@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
+
 import {
   addContact,
   deleteContact,
   setFilter,
 } from '../redux/contacts/contactsReducer';
+
+import { ContactForm, ContactList, Filter } from 'components';
 
 export const App = () => {
   const dispatch = useDispatch();
