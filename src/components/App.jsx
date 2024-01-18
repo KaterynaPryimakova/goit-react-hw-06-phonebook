@@ -3,6 +3,11 @@ import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import {
+  addContact,
+  deleteContact,
+  setFilter,
+} from '../redux/contacts/contactsReducer';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -23,26 +28,17 @@ export const App = () => {
       id: nanoid(),
     };
 
-    const action = {
-      type: 'contacts/addContact',
-      payload: newContact,
-    };
-    dispatch(action);
-  };
-
-  const handleFindContact = e => {
-    const action = {
-      type: 'contacts/setFilter',
-      payload: e.target.value,
-    };
+    const action = addContact(newContact);
     dispatch(action);
   };
 
   const handleDeleteContact = contactId => {
-    const action = {
-      type: 'contacts/deleteContact',
-      payload: contactId,
-    };
+    const action = deleteContact(contactId);
+    dispatch(action);
+  };
+
+  const handleFindContact = e => {
+    const action = setFilter(e.target.value);
     dispatch(action);
   };
 

@@ -25,3 +25,24 @@ export const contactsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const addContact = payload => {
+  return {
+    type: 'contacts/addContact',
+    payload,
+  };
+};
+
+export const deleteContact = payload => {
+  return {
+    type: 'contacts/deleteContact',
+    payload,
+  };
+};
+
+export const setFilter = payload => {
+  return {
+    type: 'contacts/setFilter',
+    payload,
+  };
+};
