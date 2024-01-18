@@ -11,8 +11,8 @@ import { ContactForm, ContactList, Filter } from 'components';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(store => store.contacts.contacts);
-  const filter = useSelector(store => store.contacts.filter);
+  const contacts = useSelector(store => store.phonebook.contacts);
+  const filter = useSelector(store => store.phonebook.filter);
 
   const updateState = contactData => {
     const alreadyExist = contacts.some(
