@@ -5,7 +5,7 @@ import {
   addContact,
   deleteContact,
   setFilter,
-} from '../redux/contacts/contactsReducer';
+} from '../redux/contacts/contactsSlice';
 
 import { ContactForm, ContactList, Filter } from 'components';
 
