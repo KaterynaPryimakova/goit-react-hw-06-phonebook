@@ -14,7 +14,7 @@ export const App = () => {
   const contacts = useSelector(store => store.phonebook.contacts);
   const filter = useSelector(store => store.phonebook.filter);
 
-  const updateState = contactData => {
+  const handleAddContact = contactData => {
     const alreadyExist = contacts.some(
       contact => contact.name.toLowerCase() === contactData.name.toLowerCase()
     );
@@ -28,18 +28,15 @@ export const App = () => {
       id: nanoid(),
     };
 
-    const action = addContact(newContact);
-    dispatch(action);
+    dispatch(addContact(newContact));
   };
 
   const handleDeleteContact = contactId => {
-    const action = deleteContact(contactId);
-    dispatch(action);
+    dispatch(deleteContact(contactId));
   };
 
   const handleFindContact = e => {
-    const action = setFilter(e.target.value);
-    dispatch(action);
+    dispatch(setFilter(e.target.value));
   };
 
   const getFilteredContacts = () => {
@@ -53,7 +50,7 @@ export const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm title="Phonebook" getNewContact={updateState} />
+      <ContactForm addContact={handleAddContact} />
 
       <h2>Contacts</h2>
       <Filter findContact={handleFindContact} filter={filter} />

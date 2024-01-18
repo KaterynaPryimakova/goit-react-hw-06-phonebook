@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import css from './ContactForm.module.css';
 
-export const ContactForm = ({ getNewContact }) => {
+export const ContactForm = ({ addContact }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -25,7 +25,7 @@ export const ContactForm = ({ getNewContact }) => {
   const handleAddContact = evt => {
     evt.preventDefault();
 
-    getNewContact({ name, number });
+    addContact({ name, number });
 
     setName('');
     setNumber('');
@@ -39,6 +39,7 @@ export const ContactForm = ({ getNewContact }) => {
           onChange={handleChange}
           type="text"
           name="name"
+          autoComplete="on"
           value={name}
           required
         />
@@ -50,6 +51,7 @@ export const ContactForm = ({ getNewContact }) => {
           onChange={handleChange}
           type="tel"
           name="number"
+          autoComplete="on"
           value={number}
           required
         />
