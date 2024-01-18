@@ -52,13 +52,17 @@ export const App = () => {
       <h1>Phonebook</h1>
       <ContactForm addContact={handleAddContact} />
 
-      <h2>Contacts</h2>
-      <Filter findContact={handleFindContact} filter={filter} />
-      <ContactList
-        title="Contacts"
-        contacts={getFilteredContacts()}
-        deleteContact={handleDeleteContact}
-      />
+      {contacts.length > 0 && (
+        <>
+          <h2>Contacts</h2>
+          <Filter findContact={handleFindContact} filter={filter} />
+          <ContactList
+            title="Contacts"
+            contacts={getFilteredContacts()}
+            deleteContact={handleDeleteContact}
+          />
+        </>
+      )}
     </div>
   );
 };
